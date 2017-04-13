@@ -15,6 +15,7 @@ app.use(function(request, response, next){
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.static('public'))
 
 app.set('port', process.env.PORT || 3000)
 
@@ -49,7 +50,7 @@ app.post('/api/items', (request, response) => {
 
 if(!module.parent){
 app.listen(app.get('port'), () => {
-  console.log(`${app.locals.title} is running on ${app.get('port')}.`)
+  console.log(`Garage Bin is running on ${app.get('port')}.`)
   })
 }
 

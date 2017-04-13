@@ -14,7 +14,23 @@
       <button class="open-garage-btn">Click to open</button>
     </div>
     <img class="garage-door" src="./garage-door.jpg" />
-    <div class="item-form"></div>
+    <div class="item-form">
+      <section>
+        <aside class="new-item-container">
+          <span>Name of junk item: </span>
+          <input class="item-name-input" placeholder="New item name" />
+          <span>Why do you hang on to this crap?</span>
+          <input class="item-reason-input" placeholder="Lame reason here" />
+          <span>Select the cleanliness of this item:</span>
+          <select class="cleanliness-selection">
+            <option value='Sparkling'>Sparkling</option>
+            <option value='Dusty'>Dusty</option>
+            <option value='Rancid'>Rancid</option>
+          </select>
+        </aside>
+        <button type="submit" class="submit-item-btn">Submit</submit>
+      </section>
+    </div>
     <div class="item-shelf"></div>
 
     <script src="./index.js"></script>

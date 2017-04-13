@@ -1,5 +1,20 @@
 /*font-family: 'Open Sans', sans-serif;
 font-family: 'Sigmar One', cursive;*/
+.landing-pg-container{
+  display:flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.open-garage-btn {
+  width:10%;
+  margin:auto;
+}
+
+h1{
+  font-family: 'Sigmar One', cursive;
+  text-align: center;
+}
 
 img {
   height:100vh;

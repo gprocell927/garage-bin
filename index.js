@@ -1,10 +1,16 @@
 const openGarageButton = document.querySelector('.open-garage-btn')
 const garageDoor = document.querySelector('.garage-door')
+const submitItemButton = document.querySelector('.submit-item-btn')
 
 openGarageButton.addEventListener('click', (e) => {
   toggleGarageDoorDisplay(e)
   getItems()
   renderNewItemForm(e)
+})
+
+submitItemButton.addEventListener('click', (e) => {
+  e.preventDefault()
+  const newItemInput = document.querySelector('.new-item-input')
 })
 
 function getItems() {

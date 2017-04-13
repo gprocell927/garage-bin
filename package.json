@@ -1,0 +1,15 @@
+{
+  "name": "garage-bin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Gabi Procell <gprocell927@gmail.com> (https://www.turing.io/alumni/gabi-procell)",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}

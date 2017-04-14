@@ -2,6 +2,9 @@ const garageDoor = document.querySelector('.garage-door')
 const openGarageButton = document.querySelector('.open-garage-btn')
 const newItemForm = document.querySelector('.item-form')
 const submitButton = document.querySelector('.submit-item-btn')
+const userInput = document.querySelector('.item-name-input')
+const userReason = document.querySelector('.item-reason-input')
+const cleanliness = document.querySelector('.cleanliness-selection')
 
 openGarageButton.addEventListener('click', () => {
   toggleGarageDoorDisplay()
@@ -13,9 +16,6 @@ submitButton.addEventListener('click', (e) => {
 })
 
 function postNewItem(){
-  const userInput = document.querySelector('.item-name-input')
-  const userReason = document.querySelector('.item-reason-input')
-  const cleanliness = document.querySelector('.cleanliness-selection')
   const server = ('/api/items')
 
   fetch(server, {
@@ -33,6 +33,7 @@ function postNewItem(){
   .then(res => res.json())
   .then(res => showItems())
   userInput.value = ''
+  userReason.value = ''
   }
 
 

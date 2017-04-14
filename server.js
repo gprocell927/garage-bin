@@ -34,8 +34,8 @@ app.get('/api/items', (request, response) => {
 })
 
 app.post('/api/items', (request, response) => {
-  const { name } = request.body
-  const item  = { name }
+  const { name, reason, cleanliness} = request.body
+  const item  = { name, reason, cleanliness }
   database('items').insert(item)
   .then(() => {
     database('items').select()

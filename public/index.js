@@ -5,6 +5,10 @@ const submitButton = document.querySelector('.submit-item-btn')
 const userInput = document.querySelector('.item-name-input')
 const userReason = document.querySelector('.item-reason-input')
 const cleanliness = document.querySelector('.cleanliness-selection')
+const itemShelf = document.querySelector('.item-shelf')
+const sortByNameBtn = document.querySelector('.sort-by-name-btn')
+const newItemContainer = document.querySelector('.new-item-container')
+
 
 openGarageButton.addEventListener('click', () => {
   toggleGarageDoorDisplay()
@@ -12,10 +16,6 @@ openGarageButton.addEventListener('click', () => {
 
 submitButton.addEventListener('click', (e) => {
   e.preventDefault()
-  postNewItem()
-})
-
-function postNewItem(){
   const server = ('/api/items')
 
   fetch(server, {
@@ -34,14 +34,18 @@ function postNewItem(){
   .then(res => showItems())
   userInput.value = ''
   userReason.value = ''
-  }
 
+})
 
 function toggleGarageDoorDisplay(){
   if(garageDoor.style.display == 'none'){
     garageDoor.style.display = 'block'
+    newItemContainer.style.display = 'none'
+    itemShelf.style.display = 'none'
   } else {
     garageDoor.style.display = 'none'
+    newItemForm.style.display = 'block'
+    itemShelf.style.display = 'block'
     showItems()
   }
 }
@@ -56,5 +60,19 @@ function showItems(){
     },
   })
   .then(res => res.json())
-  .then(res => document.querySelector('.item-shelf').innerHTML = res.reduce((acc, item) => `${acc} <ul data-id=${item.id} class="item-list">Name: ${item.name}, Reason: ${item.reason}, Cleanliness: ${item.cleanliness}</ul>`, ''))
+  .then(res => document.querySelector('.item-shelf').innerHTML = res.reduce((acc, item) => `${acc} <ul data-id=${item.id} class="item-list">Name: ${item.name}, Reason: ${item.reason}, Cleanliness: ${item.cleanliness}</ul> `, ''))
+}
+
+function sortByName(){
+  sortByNameBtn.addEventListener('click', () => {
+    const server = ('/api/items')
+    fetch(server, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    })
+    .then(res => console.log(res.json()))
+  })
 }

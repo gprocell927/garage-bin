@@ -34,7 +34,6 @@ submitButton.addEventListener('click', (e) => {
   .then(res => showItems())
   userInput.value = ''
   userReason.value = ''
-
 })
 
 function toggleGarageDoorDisplay(){
@@ -47,6 +46,7 @@ function toggleGarageDoorDisplay(){
     newItemForm.style.display = 'block'
     itemShelf.style.display = 'block'
     showItems()
+    countItems()
   }
 }
 
@@ -62,6 +62,20 @@ function showItems(){
   .then(res => res.json())
   .then(res => document.querySelector('.item-shelf').innerHTML = res.reduce((acc, item) => `${acc} <ul data-id=${item.id} class="item-list">Name: ${item.name}, Reason: ${item.reason}, Cleanliness: ${item.cleanliness}</ul> `, ''))
 }
+
+function countItems(){
+  const server = ('/api/items')
+  fetch(server, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+  })
+  .then(res => res.json())
+  .then(res => document.querySelector('.item-count').innerHTML = `Number of items in garage: ${res.length}`)
+}
+
 
 function sortByName(){
   sortByNameBtn.addEventListener('click', () => {

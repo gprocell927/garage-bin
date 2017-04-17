@@ -106,8 +106,10 @@ function cleanlinessCount(){
   })
   .then(res => res.json())
   .then(res => res.map(thing => thing.cleanliness))
-  .then(res => console.log(res.reduce((acc, item) => {
+  .then(res => res.reduce((acc, item) => {
     acc[item] = (acc[item] || 0) + 1
-    return document.querySelector('.cleanliness-count').innerHTML = `Items counted by cleanliness: Sparkling: ${acc['Sparkling']}, Dusty: ${acc['Dusty']}, Rancid: ${acc['Rancid']}`
-  }, {}))) // => [{obj1},{obj2},...]
+    return acc
+  }, {} ))
+  .then(res => document.querySelector('.cleanliness-count').innerHTML = `Items counted by cleanliness: Sparkling: ${res['Sparkling']}, Dusty: ${res['Dusty']}, Rancid: ${res['Rancid']}`) 
+ // => [{obj1},{obj2},...]
 }// find all cleanliness data and sum them up)

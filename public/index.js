@@ -51,7 +51,7 @@ sortByNameBtn.addEventListener('click', () => {
 
 
 function showSortedItems(items){
-  return itemShelf.innerHTML = items.reduce((acc, item) => `${acc} <ul data-id=${item.id} class="item-list">Name: ${item.name}, Reason: ${item.reason}, Cleanliness: ${item.cleanliness}</ul> `, '')
+  return itemShelf.innerHTML = items.reduce((acc, item) => `${acc} <ul data-id=${item.id} class="item-list">Name:<a href="https://www.w3schools.com/html/"> ${item.name}</a>, Reason: ${item.reason}, Cleanliness: ${item.cleanliness}</ul> `, '')
 }
 
 function toggleGarageDoorDisplay(){
@@ -79,7 +79,7 @@ function showItems(){
     },
   })
   .then(res => res.json())
-  .then(res => itemShelf.innerHTML = res.reduce((acc, item) => `${acc} <ul data-id=${item.id} class="item-list">Name: ${item.name}, Reason: ${item.reason}, Cleanliness: ${item.cleanliness}</ul> `, ''))
+  .then(res => itemShelf.innerHTML = res.reduce((acc, item) => `${acc} <ul data-id=${item.id} class="item-list">Name: <a href="https://www.w3schools.com/html/">${item.name}</a>, Reason: ${item.reason}, Cleanliness: ${item.cleanliness}</ul> `, ''))
 }
 
 function countItems(){
@@ -110,6 +110,5 @@ function cleanlinessCount(){
     acc[item] = (acc[item] || 0) + 1
     return acc
   }, {} ))
-  .then(res => document.querySelector('.cleanliness-count').innerHTML = `Items counted by cleanliness: Sparkling: ${res['Sparkling']}, Dusty: ${res['Dusty']}, Rancid: ${res['Rancid']}`) 
- // => [{obj1},{obj2},...]
-}// find all cleanliness data and sum them up)
+  .then(res => document.querySelector('.cleanliness-count').innerHTML = `Items counted by cleanliness: Sparkling: ${res['Sparkling']}, Dusty: ${res['Dusty']}, Rancid: ${res['Rancid']}`)
+}

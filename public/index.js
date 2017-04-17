@@ -8,7 +8,7 @@ const cleanliness = document.querySelector('.cleanliness-selection')
 const itemShelf = document.querySelector('.item-shelf')
 const sortByNameBtn = document.querySelector('.sort-by-name-btn')
 const newItemContainer = document.querySelector('.new-item-container')
-
+let names
 
 openGarageButton.addEventListener('click', () => {
   toggleGarageDoorDisplay()
@@ -35,6 +35,25 @@ submitButton.addEventListener('click', (e) => {
   userInput.value = ''
   userReason.value = ''
 })
+
+sortByNameBtn.addEventListener('click', () => {
+  const server = ('/api/items')
+  fetch(server, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+  })
+  .then(res => res.json())
+  .then(res => res.map(thing => thing.name.toLowerCase()))
+  .then(res => res.sort((a,b) => {
+   return a < b ? -1: (a > b) ? 1 : 0
+ })) // need to reference value of res item in obj
+  .then(res => res.reduce((acc, item) =>
+    document.querySelector('.item-shelf').innerHTML = `<ul data-id=${item.id} class="item-list">Name: ${item.name}, Reason: ${item.reason}, Cleanliness: ${item.cleanliness}</ul> `, ''
+    ))
+  })
 
 function toggleGarageDoorDisplay(){
   if(garageDoor.style.display == 'none'){
@@ -76,7 +95,6 @@ function countItems(){
   .then(res => res.json())
   .then(res => document.querySelector('.item-count').innerHTML = `Number of items in garage: ${res.length}`)
 }
-let combined = new Object()
 
 // function cleanlinessCount(){
 //   const server = ('/api/items')

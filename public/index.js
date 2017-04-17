@@ -25,7 +25,7 @@ submitButton.addEventListener('click', (e) => {
       'Accept': 'application/json',
     },
     body: JSON.stringify({
-      name:userInput.value,
+      name:userInput.value.toLowerCase(),
       reason:userReason.value,
       cleanliness: cleanliness.value
     })
@@ -36,24 +36,41 @@ submitButton.addEventListener('click', (e) => {
   userReason.value = ''
 })
 
+// sortByNameBtn.addEventListener('click', () => {
+//   const server = ('/api/items')
+//   fetch(server, {
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Accept': 'application/json',
+//     },
+//   })
+//   .then(res => res.json())
+//   .then(res => res.map(thing => thing.name.toLowerCase()))
+//   .then(res => res.sort((a,b) => {
+//    return a < b ? -1: (a > b) ? 1 : 0
+//  })) // need to reference value of res item in obj
+//   .then(res => res.reduce((acc, item) =>
+//     document.querySelector('.item-shelf').innerHTML = `<ul data-id=${item.id} class="item-list">Name: ${item.name}, Reason: ${item.reason}, Cleanliness: ${item.cleanliness}</ul> `, ''
+//     ))
+//   })
 sortByNameBtn.addEventListener('click', () => {
-  const server = ('/api/items')
-  fetch(server, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
+    const server = ('/api/items/sortByName')
+    fetch(server, {
+      method:'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    })
+    .then(res => res.json())
+    .then(res => showSortedItems(res))
   })
-  .then(res => res.json())
-  .then(res => res.map(thing => thing.name.toLowerCase()))
-  .then(res => res.sort((a,b) => {
-   return a < b ? -1: (a > b) ? 1 : 0
- })) // need to reference value of res item in obj
-  .then(res => res.reduce((acc, item) =>
-    document.querySelector('.item-shelf').innerHTML = `<ul data-id=${item.id} class="item-list">Name: ${item.name}, Reason: ${item.reason}, Cleanliness: ${item.cleanliness}</ul> `, ''
-    ))
-  })
+
+
+function showSortedItems(items){
+  return itemShelf.innerHTML = items.reduce((acc, item) => `${acc} <ul data-id=${item.id} class="item-list">Name: ${item.name}, Reason: ${item.reason}, Cleanliness: ${item.cleanliness}</ul> `, '')
+}
 
 function toggleGarageDoorDisplay(){
   if(garageDoor.style.display == 'none'){
@@ -80,7 +97,7 @@ function showItems(){
     },
   })
   .then(res => res.json())
-  .then(res => document.querySelector('.item-shelf').innerHTML = res.reduce((acc, item) => `${acc} <ul data-id=${item.id} class="item-list">Name: ${item.name}, Reason: ${item.reason}, Cleanliness: ${item.cleanliness}</ul> `, ''))
+  .then(res => itemShelf.innerHTML = res.reduce((acc, item) => `${acc} <ul data-id=${item.id} class="item-list">Name: ${item.name}, Reason: ${item.reason}, Cleanliness: ${item.cleanliness}</ul> `, ''))
 }
 
 function countItems(){
@@ -108,17 +125,3 @@ function countItems(){
 //   .then(res => res.json())
 //   .then(res => console.log(res.map(item =>  item.cleanliness)))// find all cleanliness data and sum them up)
 //
-
-function sortByName(){
-  sortByNameBtn.addEventListener('click', () => {
-    const server = ('/api/items')
-    fetch(server, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-    })
-    .then(res => console.log(res.json()))
-  })
-}

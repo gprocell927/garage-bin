@@ -33,6 +33,16 @@ app.get('/api/items', (request, response) => {
   })
 })
 
+app.get('/api/items/sortByName', (request, response) => {
+  database('items').select().orderBy('name', 'desc')
+  .then((items) => {
+    response.status(200).json(items)
+  })
+  .catch((error) => {
+    console.error('Something is wrong with the database')
+  })
+})
+
 app.post('/api/items', (request, response) => {
   const { name, reason, cleanliness} = request.body
   const item  = { name, reason, cleanliness }

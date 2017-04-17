@@ -47,6 +47,7 @@ function toggleGarageDoorDisplay(){
     itemShelf.style.display = 'block'
     showItems()
     countItems()
+    // cleanlinessCount()
   }
 }
 
@@ -75,7 +76,20 @@ function countItems(){
   .then(res => res.json())
   .then(res => document.querySelector('.item-count').innerHTML = `Number of items in garage: ${res.length}`)
 }
+let combined = new Object()
 
+// function cleanlinessCount(){
+//   const server = ('/api/items')
+//   fetch(server, {
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Accept': 'application/json',
+//     },
+//   })
+//   .then(res => res.json())
+//   .then(res => console.log(res.map(item =>  item.cleanliness)))// find all cleanliness data and sum them up)
+//
 
 function sortByName(){
   sortByNameBtn.addEventListener('click', () => {

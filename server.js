@@ -33,6 +33,20 @@ app.get('/api/items', (request, response) => {
   })
 })
 
+app.get('/api/items/:id', (request, response) => {
+  database('items').where('id', request.params.id).select()
+  .then((items) => {
+    if(items.length === 0){
+      response.status(404).send({
+        error:'There are no items that belong to that ID.'
+      })
+    } else {
+      response.status(200).json(items)
+      }
+    })
+  })
+
+
 app.get('/api/items/sortByName', (request, response) => {
   database('items').select().orderBy('name', 'desc')
   .then((items) => {

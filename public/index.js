@@ -51,7 +51,25 @@ sortByNameBtn.addEventListener('click', () => {
 
 
 function showSortedItems(items){
-  return itemShelf.innerHTML = items.reduce((acc, item) => `${acc} <ul data-id=${item.id} class="item-list">Name:<a href="https://www.w3schools.com/html/"> ${item.name}</a>, Reason: ${item.reason}, Cleanliness: ${item.cleanliness}</ul> `, '')
+  return itemShelf.innerHTML = items.reduce((acc, item) => `${acc}
+  <ul
+    data-id=${item.id}
+    class="item-list"
+  >
+    <a href="#">
+      ${item.name}
+    </a>
+    <p class="">
+      Reason: ${item.reason}<br>
+      Cleanliness: ${item.cleanliness}
+    </p>
+    <select>
+      <option value='Sparkling'>Sparkling</option>
+      <option value='Dusty'>Dusty</option>
+      <option value='Rancid'>Rancid</option>
+    </select>
+  </ul>
+  <hr> `, '')
 }
 
 function toggleGarageDoorDisplay(){
@@ -79,7 +97,25 @@ function showItems(){
     },
   })
   .then(res => res.json())
-  .then(res => itemShelf.innerHTML = res.reduce((acc, item) => `${acc} <ul data-id=${item.id} class="item-list">Name: <a href="https://www.w3schools.com/html/">${item.name}</a>, Reason: ${item.reason}, Cleanliness: ${item.cleanliness}</ul> `, ''))
+  .then(res => itemShelf.innerHTML = res.reduce((acc, item) => `${acc}
+  <ul
+    data-id=${item.id}
+    class="item-list"
+  >
+    <a href="#">
+      ${item.name}
+    </a>
+    <p class="">
+      Reason: ${item.reason}<br>
+      Cleanliness: ${item.cleanliness}
+    </p>
+    <select>
+      <option value='Sparkling'>Sparkling</option>
+      <option value='Dusty'>Dusty</option>
+      <option value='Rancid'>Rancid</option>
+    </select>
+  </ul>
+  <hr> `, ''))
 }
 
 function countItems(){

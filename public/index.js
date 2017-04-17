@@ -36,24 +36,6 @@ submitButton.addEventListener('click', (e) => {
   userReason.value = ''
 })
 
-// sortByNameBtn.addEventListener('click', () => {
-//   const server = ('/api/items')
-//   fetch(server, {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Accept': 'application/json',
-//     },
-//   })
-//   .then(res => res.json())
-//   .then(res => res.map(thing => thing.name.toLowerCase()))
-//   .then(res => res.sort((a,b) => {
-//    return a < b ? -1: (a > b) ? 1 : 0
-//  })) // need to reference value of res item in obj
-//   .then(res => res.reduce((acc, item) =>
-//     document.querySelector('.item-shelf').innerHTML = `<ul data-id=${item.id} class="item-list">Name: ${item.name}, Reason: ${item.reason}, Cleanliness: ${item.cleanliness}</ul> `, ''
-//     ))
-//   })
 sortByNameBtn.addEventListener('click', () => {
     const server = ('/api/items/sortByName')
     fetch(server, {
@@ -83,7 +65,7 @@ function toggleGarageDoorDisplay(){
     itemShelf.style.display = 'block'
     showItems()
     countItems()
-    // cleanlinessCount()
+    cleanlinessCount()
   }
 }
 
@@ -113,15 +95,19 @@ function countItems(){
   .then(res => document.querySelector('.item-count').innerHTML = `Number of items in garage: ${res.length}`)
 }
 
-// function cleanlinessCount(){
-//   const server = ('/api/items')
-//   fetch(server, {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Accept': 'application/json',
-//     },
-//   })
-//   .then(res => res.json())
-//   .then(res => console.log(res.map(item =>  item.cleanliness)))// find all cleanliness data and sum them up)
-//
+function cleanlinessCount(){
+  const server = ('/api/items/cleanlinessCount')
+  fetch(server, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+  })
+  .then(res => res.json())
+  .then(res => res.map(thing => thing.cleanliness))
+  .then(res => console.log(res.reduce((acc, item) => {
+    acc[item] = (acc[item] || 0) + 1
+    return document.querySelector('.cleanliness-count').innerHTML = `Items counted by cleanliness: Sparkling: ${acc['Sparkling']}, Dusty: ${acc['Dusty']}, Rancid: ${acc['Rancid']}`
+  }, {}))) // => [{obj1},{obj2},...]
+}// find all cleanliness data and sum them up)

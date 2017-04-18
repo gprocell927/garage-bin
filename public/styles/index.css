@@ -1,5 +1,9 @@
 /*font-family: 'Open Sans', sans-serif;
 font-family: 'Sigmar One', cursive;*/
+.item-form, .item-shelf, .item-details{
+  font-family: 'Open Sans', sans-serif;
+}
+
 .landing-pg-container{
   display:flex;
   justify-content: center;

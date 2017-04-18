@@ -20,3 +20,16 @@ img {
   height:100vh;
   width:100%;
 }
+
+.item-details{
+  display: inline-block;
+  width: 50%;
+  float:right;
+}
+
+.item-shelf{
+  display:inline-block;
+  width: 20vw;
+  height: 100%;
+  float:left;
+}

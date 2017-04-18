@@ -21,7 +21,7 @@ openGarageButton.addEventListener('click', () => {
 submitItemButton.addEventListener('click', (e) => {
   e.preventDefault()
   const server = ('/api/items')
-
+  debugger
   fetch(server, {
     method:'POST',
     headers: {
@@ -35,7 +35,7 @@ submitItemButton.addEventListener('click', (e) => {
     })
   })
   .then(res => res.json())
-  .then(res => showItems())
+  .then(res => getItems())
   userInput.value = ''
   userReason.value = ''
 })
@@ -124,13 +124,13 @@ function toggleGarageDoorDisplay(){
     garageDoor.style.display = 'none'
     newItemForm.style.display = 'block'
     itemShelf.style.display = 'block'
-    showItems()
+    getItems()
     countItems()
     cleanlinessCount()
   }
 }
 
-function showItems(){
+function getItems(){
   const server = ('/api/items')
   fetch(server, {
     method: 'GET',
@@ -140,14 +140,18 @@ function showItems(){
     },
   })
   .then(res => res.json())
-  .then(res => itemShelf.innerHTML = res.reduce((acc, item) => `${acc}
+  .then(res => itemShelf.innerHTML = showItems(res))
+}
+
+function showItems(details){
+  return details.reduce((acc, item) => `${acc}
   <ul
     data-id=${item.id}
     class="item-list"
   >
       ${item.name}
   </ul>
-  <hr> `, ''))
+  <hr> `, '')
 }
 
 function countItems(){

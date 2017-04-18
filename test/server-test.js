@@ -103,4 +103,23 @@ describe('Endpoints', () => {
     }) //end of POST /api/items
 
 
+  context('PATCH /api/items/:id', () => {
+      it('should edit the cleanliness field of an item ', (done) => {
+        chai.request(app)
+        .patch('/api/items/1')
+        .send({
+          cleanliness:'Rancid'
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(200)
+          expect(res).to.be.json
+          expect(res.body).to.be.a('array')
+          expect(res.body).to.have.length(1)
+          expect(res.body[0].name).to.equal('Rubber Chicken')
+          expect(res.body[0].cleanliness).to.equal('Rancid')
+          done()
+        })
+      })
+    }) //end of PATCH /api/items/:id
+
 })//end of describe server block

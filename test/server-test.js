@@ -14,7 +14,8 @@ describe('Server', () => {
     expect(app).to.exist
     })
   })
-})
+})    //end of context app block
+
 
 describe('Endpoints', () => {
   beforeEach((done) => {
@@ -22,7 +23,7 @@ describe('Endpoints', () => {
     .then(() => {
       knex.migrate.latest()
         .then(() => {
-          return knex.seed.run()
+          knex.seed.run()
           .then(() => {
             done()
           })
@@ -37,7 +38,6 @@ describe('Endpoints', () => {
     })
   })
 
-   //end of context app block
 
   context('GET /api/items', () => {
     it('should return all items', (done) => {
@@ -59,6 +59,25 @@ describe('Endpoints', () => {
     })
   }) // end of GET /api/items block
 
+  context('GET /api/items/:id', () => {
+    it('should return a single item', (done) => {
+      chai.request(app)
+      .get('/api/items/1')
+      .end((err, res) => {
+        expect(res).to.have.status(200)
+        expect(res).to.be.json
+        expect(res.body[0]).to.be.a('array')
+        expect(res.body[0]).to.have.property('name')
+        expect(res.body[0].name).to.equal('Rubber Chicken')
+        expect(res.body[0]).to.have.property('reason')
+        expect(res.body[0].reason).to.equal('It is fun')
+        expect(res.body[0]).to.have.property('cleanliness')
+        expect(res.body[0].reason).to.equal('Dusty')
+        done()
+      })
+    })
+  }) // end of GET /api/items/:id
+
   context('POST /api/items', () => {
       it('should add an item', (done) => {
         chai.request(app)
@@ -72,12 +91,12 @@ describe('Endpoints', () => {
           expect(res).to.have.status(200)
           expect(res).to.be.json
           expect(res.body).to.be.a('array')
-          expect(res.body[0]).to.have.property('name')
-          expect(res.body[0].name).to.equal('Pink Marshmallow Peeps from 1995')
-          expect(res.body[0]).to.have.property('reason')
-          expect(res.body[0].reason).to.equal('They never go bad and they\'re delicious')
-          expect(res.body[0]).to.have.property('clcleanliness')
-          expect(res.body[0].reason).to.equal('Rancid')
+          expect(res.body).to.have.property('name')
+          expect(res.body.name).to.equal('Pink Marshmallow Peeps from 1995')
+          expect(res.body).to.have.property('reason')
+          expect(res.body.reason).to.equal('They never go bad and they\'re delicious')
+          expect(res.body).to.have.property('cleanliness')
+          expect(res.body.reason).to.equal('Rancid')
           done()
         })
       })

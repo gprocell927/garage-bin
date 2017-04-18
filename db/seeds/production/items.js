@@ -13,6 +13,12 @@ exports.seed = function(knex, Promise) {
         reason: 'Sentimental value',
         cleanliness: 'Rancid',
         created_at: new Date
+      }),
+      knex('items').insert({
+        name: 'Marshmallow Peeps',
+        reason: '1995 Special Edition',
+        cleanliness: 'Sparkling',
+        created_at: new Date
       })
     ]);
   });

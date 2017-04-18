@@ -5,6 +5,7 @@ const submitItemButton = document.querySelector('.submit-item-btn')
 const userInput = document.querySelector('.item-name-input')
 const userReason = document.querySelector('.item-reason-input')
 const cleanliness = document.querySelector('.cleanliness-selection')
+const updateCleanliness = document.querySelector('.update-cleanliness')
 const itemShelf = document.querySelector('.item-shelf')
 const sortByNameBtn = document.querySelector('.sort-by-name-btn')
 const newItemContainer = document.querySelector('.new-item-container')
@@ -58,6 +59,26 @@ itemShelf.addEventListener('click', (e) => {
     getItemDetails(id, itemName)
   })
 
+// updateCleanliness.addEventListener('change', (e) => {
+//
+//   const id = e.target.dataset.id
+//   console.log(id);
+//   const server = (`/api/items/${id}`)
+//
+//   fetch(server, {
+//     method:'PATCH',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Accept': 'application/json',
+//     },
+//     body: JSON.stringify({
+//       cleanliness: updateCleanliness.value
+//     })
+//   })
+//   .then(res => res.json())
+//   .then(res => showItems())
+// }) //cannot read event listener of null
+
 function getItemDetails(id){
   const server = (`/api/items/${id}`)
   fetch(server, {
@@ -72,12 +93,11 @@ function getItemDetails(id){
 }
 
 function showItemDetails(details){
-  console.log(details);
   return `<p>Name: ${details[0].name}<br>
              Reason: ${details[0].reason}<br>
              Cleanliness: ${details[0].cleanliness}
           </p>
-            <select>
+            <select class="update-cleanliness">
               <option value="Sparkling">Sparkling</option>
               <option value="Dusty">Dusty</option>
               <option value="Rancid">Rancid</option>

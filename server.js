@@ -84,6 +84,21 @@ app.post('/api/items', (request, response) => {
     })
 })
 
+app.patch('/api/items/:id', (request, response) => {
+  const { id } = request.params
+  const { name, reason, cleanliness } = request.body
+  database('items').where('id', id).update({ cleanliness })
+  .then(() => {
+    database('items').where('id', id).select()
+    .then(items => {
+      response.status(200).json(items)
+    })
+    .catch(error => {
+      response.status(500)
+    })
+  })
+})
+
 if(!module.parent){
 app.listen(app.get('port'), () => {
   console.log(`Garage Bin is running on ${app.get('port')}.`)

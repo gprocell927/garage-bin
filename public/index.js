@@ -1,20 +1,23 @@
 const garageDoor = document.querySelector('.garage-door')
 const openGarageButton = document.querySelector('.open-garage-btn')
 const newItemForm = document.querySelector('.item-form')
-const submitButton = document.querySelector('.submit-item-btn')
+const submitItemButton = document.querySelector('.submit-item-btn')
 const userInput = document.querySelector('.item-name-input')
 const userReason = document.querySelector('.item-reason-input')
 const cleanliness = document.querySelector('.cleanliness-selection')
 const itemShelf = document.querySelector('.item-shelf')
 const sortByNameBtn = document.querySelector('.sort-by-name-btn')
 const newItemContainer = document.querySelector('.new-item-container')
-let names
+const itemNameList = document.querySelector('.item-list')
+const itemAttributes = document.querySelector('.item-attributes')
+const itemDetails = document.querySelector('.item-details')
+let itemName
 
 openGarageButton.addEventListener('click', () => {
   toggleGarageDoorDisplay()
 })
 
-submitButton.addEventListener('click', (e) => {
+submitItemButton.addEventListener('click', (e) => {
   e.preventDefault()
   const server = ('/api/items')
 
@@ -49,6 +52,37 @@ sortByNameBtn.addEventListener('click', () => {
     .then(res => showSortedItems(res))
   })
 
+itemShelf.addEventListener('click', (e) => {
+    const id = e.target.dataset.id
+    itemName = e.target.dataset.id
+    getItemDetails(id, itemName)
+  })
+
+function getItemDetails(id){
+  const server = (`/api/items/${id}`)
+  fetch(server, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+  })
+  .then(res => res.json())
+  .then(res => itemDetails.innerHTML = showItemDetails(res))
+}
+
+function showItemDetails(details){
+  console.log(details);
+  return `<p>Name: ${details[0].name}<br>
+             Reason: ${details[0].reason}<br>
+             Cleanliness: ${details[0].cleanliness}
+          </p>
+            <select>
+              <option value="Sparkling">Sparkling</option>
+              <option value="Dusty">Dusty</option>
+              <option value="Rancid">Rancid</option>
+            </select>`
+}
 
 function showSortedItems(items){
   return itemShelf.innerHTML = items.reduce((acc, item) => `${acc}
@@ -56,18 +90,7 @@ function showSortedItems(items){
     data-id=${item.id}
     class="item-list"
   >
-    <a href="#">
       ${item.name}
-    </a>
-    <p class="">
-      Reason: ${item.reason}<br>
-      Cleanliness: ${item.cleanliness}
-    </p>
-    <select>
-      <option value='Sparkling'>Sparkling</option>
-      <option value='Dusty'>Dusty</option>
-      <option value='Rancid'>Rancid</option>
-    </select>
   </ul>
   <hr> `, '')
 }
@@ -102,18 +125,7 @@ function showItems(){
     data-id=${item.id}
     class="item-list"
   >
-    <a href="#">
       ${item.name}
-    </a>
-    <p class="">
-      Reason: ${item.reason}<br>
-      Cleanliness: ${item.cleanliness}
-    </p>
-    <select>
-      <option value='Sparkling'>Sparkling</option>
-      <option value='Dusty'>Dusty</option>
-      <option value='Rancid'>Rancid</option>
-    </select>
   </ul>
   <hr> `, ''))
 }
@@ -132,7 +144,7 @@ function countItems(){
 }
 
 function cleanlinessCount(){
-  const server = ('/api/items/cleanlinessCount')
+  const server = ('/api/items')
   fetch(server, {
     method: 'GET',
     headers: {

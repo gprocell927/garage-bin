@@ -4,6 +4,10 @@ font-family: 'Sigmar One', cursive;*/
   font-family: 'Open Sans', sans-serif;
 }
 
+.form-elements{
+  display:flex;
+  line-height: 2;
+}
 .landing-pg-container{
   display:flex;
   justify-content: center;

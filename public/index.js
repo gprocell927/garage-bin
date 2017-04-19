@@ -15,7 +15,8 @@ const itemDetails = document.querySelector('.item-details')
 let itemName
 
 openGarageButton.addEventListener('click', () => {
-  toggleGarageDoorDisplay()
+  document.querySelector('.slider').classList.toggle('closed')
+  // toggleGarageDoorDisplay()
 })
 
 submitItemButton.addEventListener('click', (e) => {

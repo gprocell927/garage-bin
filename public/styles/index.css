@@ -40,7 +40,7 @@ img {
 
 .slider {
   overflow-y: hidden;
-  max-height: 500px;
+  max-height: 100vh;
   transition-property: all;
   transition-duration: .5s;
   transition-timing-function: cubic-bezier(0, 1, 0.5, 1);

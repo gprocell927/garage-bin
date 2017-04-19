@@ -14,15 +14,17 @@ const itemAttributes = document.querySelector('.item-attributes')
 const itemDetails = document.querySelector('.item-details')
 let itemName
 
-openGarageButton.addEventListener('click', () => {
+openGarageButton.addEventListener('click', (e) => {
+  e.preventDefault()
   document.querySelector('.slider').classList.toggle('closed')
-  // toggleGarageDoorDisplay()
+  getItems()
+  countItems()
+  cleanlinessCount()
 })
 
 submitItemButton.addEventListener('click', (e) => {
   e.preventDefault()
   const server = ('/api/items')
-  debugger
   fetch(server, {
     method:'POST',
     headers: {
@@ -114,21 +116,6 @@ function showSortedItems(items){
       ${item.name}
   </ul>
   <hr> `, '')
-}
-
-function toggleGarageDoorDisplay(){
-  if(garageDoor.style.display == 'none'){
-    garageDoor.style.display = 'block'
-    newItemContainer.style.display = 'none'
-    itemShelf.style.display = 'none'
-  } else {
-    garageDoor.style.display = 'none'
-    newItemForm.style.display = 'block'
-    itemShelf.style.display = 'block'
-    getItems()
-    countItems()
-    cleanlinessCount()
-  }
 }
 
 function getItems(){

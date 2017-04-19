@@ -33,24 +33,8 @@ app.get('/api/items', (request, response) => {
   })
 })
 
-app.get('/api/items/:id', (request, response) => {
-  database('items').where('id', request.params.id).select()
-  .then(items => {
-    if(items.length === 0){
-      response.status(404).send({
-        error: 'There are no existing items associated with that id.'
-      })
-    } else {
-      response.status(200).json(items)
-    }
-  })
-  .catch(error => {
-    response.status(404)
-  })
-})
-
 app.get('/api/items/sortByName', (request, response) => {
-  database('items').select().orderBy('name', 'desc')
+  database('items').select().orderBy('name')
   .then((items) => {
     response.status(200).json(items)
   })
@@ -82,21 +66,6 @@ app.post('/api/items', (request, response) => {
         console.error('Something is wrong with the database')
       })
     })
-})
-
-app.patch('/api/items/:id', (request, response) => {
-  const { id } = request.params
-  const { name, reason, cleanliness } = request.body
-  database('items').where('id', id).update({ cleanliness })
-  .then(() => {
-    database('items').where('id', id).select()
-    .then(items => {
-      response.status(200).json(items)
-    })
-    .catch(error => {
-      response.status(500)
-    })
-  })
 })
 
 if(!module.parent){

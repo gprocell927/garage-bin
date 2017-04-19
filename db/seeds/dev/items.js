@@ -3,13 +3,13 @@ exports.seed = function(knex, Promise) {
   .then(() => {
     return Promise.all([
       knex('items').insert({
-        name: 'Rubber Chicken',
+        name: 'rubber chicken',
         reason: 'It is fun',
         cleanliness: 'Dusty',
         created_at: new Date
       }),
       knex('items').insert({
-        name: 'Old shoe',
+        name: 'old shoe',
         reason: 'Sentimental value',
         cleanliness: 'Rancid',
         created_at: new Date
